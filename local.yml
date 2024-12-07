@@ -1,0 +1,12 @@
+---
+
+- name: Set up workstation
+  hosts: localhost
+  become: true
+
+  pre_tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+      changed_when: false
+      when: ansible_distribution == "Ubuntu"
