@@ -1,6 +1,7 @@
 ---
 
-- include_vars: default_base_packages.yml
+- name: Import base package variables
+  ansible.builtin.include_vars: default_base_packages.yml
 
 - name: Install base packages (Ubuntu)
   become: true
