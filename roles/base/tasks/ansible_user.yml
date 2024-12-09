@@ -1,0 +1,21 @@
+---
+
+# Creates the user that will be used for ansible-pull cron jobs
+
+- name: Create ansible user
+  become: true
+  ansible.builtin.user:
+    name: ansible
+    comment: "Ansible user for automation"
+    create_home: false
+    password_lock: true
+    state: present
+    system: true
+
+- name: Add ansible user to sudoers
+  become: true
+  ansible.builtin.copy:
+    content: "ansible ALL=(ALL) NOPASSWD: ALL"
+    dest: /etc/sudoers.d/ansible
+    owner: root
+    mode: u=r,g=r,o=

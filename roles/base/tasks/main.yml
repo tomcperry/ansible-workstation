@@ -8,3 +8,6 @@
 
 - name: Install packages
   ansible.builtin.import_tasks: install_packages.yml
+
+- name: Create ansible user
+  ansible.builtin.import_tasks: ansible_user.yml
