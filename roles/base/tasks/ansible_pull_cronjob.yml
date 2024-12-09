@@ -19,6 +19,34 @@
     group: root
     mode: u=rw,g=r,o=r
 
+- name: Ansible configuration directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/ansible
+    state: directory
+    recurse: false
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
+
+- name: Ansible configuration file
+  become: true
+  ansible.builtin.copy:
+    src: ansible.cfg
+    dest: /etc/ansible/ansible.cfg
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+
+- name: Create directory for ansible home directory
+  become: true
+  ansible.builtin.file:
+    path: /opt/ansible
+    state: directory
+    owner: ansible
+    group: ansible
+    mode: u=rwx,g=rx,o=rx
+
 - name: Ansible-pull cronjob (only on change)
   become: true
   ansible.builtin.cron:
