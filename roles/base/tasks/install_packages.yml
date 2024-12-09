@@ -1,0 +1,11 @@
+---
+
+- name: Import base package variables
+  ansible.builtin.include_vars: default_base_packages.yml
+
+- name: Install base packages (Ubuntu)
+  become: true
+  ansible.builtin.apt:
+    name: "{{ base_packages }}"
+    state: latest
+  when: ansible_distribution == "Ubuntu"

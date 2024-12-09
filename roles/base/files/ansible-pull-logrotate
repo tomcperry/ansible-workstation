@@ -1,0 +1,7 @@
+/var/log/ansible-pull/ansible-pull.log {
+    rotate 10
+    compress
+    missingok
+    notifempty
+    size 1M
+}

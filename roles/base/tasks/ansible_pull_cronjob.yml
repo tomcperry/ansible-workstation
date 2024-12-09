@@ -1,0 +1,67 @@
+---
+
+- name: Create directory for ansible-pull logs
+  become: true
+  ansible.builtin.file:
+    path: /var/log/ansible-pull
+    state: directory
+    recurse: false
+    owner: ansible
+    group: root
+    mode: u=rwx,g=rx,o=rx
+
+- name: Ansible-pull logrotate configuration
+  become: true
+  ansible.builtin.copy:
+    src: ansible-pull-logrotate
+    dest: /etc/logrotate.d/ansible-pull
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+
+- name: Ansible configuration directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/ansible
+    state: directory
+    recurse: false
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
+
+- name: Ansible configuration file
+  become: true
+  ansible.builtin.copy:
+    src: ansible.cfg
+    dest: /etc/ansible/ansible.cfg
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+
+- name: Create directory for ansible home directory
+  become: true
+  ansible.builtin.file:
+    path: /opt/ansible
+    state: directory
+    owner: ansible
+    group: ansible
+    mode: u=rwx,g=rx,o=rx
+
+- name: Ansible-pull cronjob (only on change)
+  become: true
+  ansible.builtin.cron:
+    name: ansible-pull-on-changes
+    state: present
+    user: ansible
+    minute: "*/10"
+    job: "ansible-pull -o -C ${XANSIBLE_BRANCH:-main} -U {{ ansible_pull_git_repo_url }} | ts >> /var/log/ansible-pull/ansible-pull.log"
+
+- name: Ansible-pull cronjob (full)
+  become: true
+  ansible.builtin.cron:
+    name: ansible-pull-full
+    state: present
+    user: ansible
+    hour: "2-22/4"
+    minute: "35"
+    job: "ansible-pull -C ${XANSIBLE_BRANCH:-main} -U {{ ansible_pull_git_repo_url }} | ts >> /var/log/ansible-pull/ansible-pull.log"

@@ -1,0 +1,18 @@
+---
+# When a fqdn is set via cloud-init, it is available to the very first ansible-pull run that is triggered by cloud-init
+# This task captures that hostname (via ansible_facts) and places it in the wsl.conf file so the hostname is persisted.
+# Without this, WSL defaults to the host Windows hostname.
+
+- name: Set WSL hostname
+  become: true
+  ansible.builtin.blockinfile:
+    insertafter: EOF
+    create: true
+    path: /etc/wsl.conf
+    owner: root
+    mode: u=rw,g=r,o=r
+    marker: "# {mark} ANSIBLE HOSTNAME BLOCK"
+    block: |
+      [network]
+      hostname={{ ansible_facts['hostname'] }}
+  when: ansible_kernel is search('WSL2')

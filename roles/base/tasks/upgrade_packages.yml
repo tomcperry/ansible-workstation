@@ -1,0 +1,7 @@
+---
+
+- name: Upgrade packages (Ubuntu)
+  become: true
+  ansible.builtin.apt:
+    upgrade: dist
+  when: ansible_distribution == "Ubuntu"
