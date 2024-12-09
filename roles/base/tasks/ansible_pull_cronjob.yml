@@ -26,7 +26,7 @@
     state: present
     user: ansible
     minute: "*/10"
-    job: "ansible-pull -o -C ${XANSIBLE_BRANCH:-main} -U https://github.com/tomcperry/ansible-workstation.git | ts >> /var/log/ansible-pull/ansible-pull.log"
+    job: "ansible-pull -o -C ${XANSIBLE_BRANCH:-main} -U {{ ansible_pull_git_repo_url }} | ts >> /var/log/ansible-pull/ansible-pull.log"
 
 - name: Ansible-pull cronjob (full)
   become: true
@@ -36,4 +36,4 @@
     user: ansible
     hour: "2-22/4"
     minute: "35"
-    job: "ansible-pull -C ${XANSIBLE_BRANCH:-main} -U https://github.com/tomcperry/ansible-workstation.git | ts >> /var/log/ansible-pull/ansible-pull.log"
+    job: "ansible-pull -C ${XANSIBLE_BRANCH:-main} -U {{ ansible_pull_git_repo_url }} | ts >> /var/log/ansible-pull/ansible-pull.log"

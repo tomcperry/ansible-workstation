@@ -1,0 +1,3 @@
+---
+
+ansible_pull_git_repo_url: https://github.com/tomcperry/ansible-workstation.git
