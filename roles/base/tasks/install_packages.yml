@@ -2,7 +2,7 @@
 
 - include_vars: default_base_packages.yml
 
-- name: Install Packages (Ubuntu)
+- name: Install base packages (Ubuntu)
   become: true
   ansible.builtin.apt:
     name: "{{ base_packages }}"
