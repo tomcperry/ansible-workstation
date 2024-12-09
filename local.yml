@@ -10,3 +10,6 @@
         update_cache: true
       changed_when: false
       when: ansible_distribution == "Ubuntu"
+
+  roles:
+    - base
