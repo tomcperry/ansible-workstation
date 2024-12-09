@@ -2,3 +2,6 @@
 
 - name: Upgrade packages
   ansible.builtin.import_tasks: upgrade_packages.yml
+
+- name: Install packages
+  ansible.builtin.import_tasks: install_packages.yml

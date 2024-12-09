@@ -1,0 +1,10 @@
+---
+
+- include_vars: default_base_packages.yml
+
+- name: Install Packages (Ubuntu)
+  become: true
+  ansible.builtin.apt:
+    name: "{{ base_packages }}"
+    state: latest
+  when: ansible_distribution == "Ubuntu"

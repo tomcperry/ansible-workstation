@@ -1,0 +1,8 @@
+---
+
+base_packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - wget
+  - moreutils
