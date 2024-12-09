@@ -1,0 +1,15 @@
+---
+
+- name: Set WSL hostname
+  become: true
+  ansible.builtin.blockinfile:
+    insertafter: EOF
+    create: true
+    path: /etc/wsl.conf
+    owner: root
+    mode: u=rw,g=r,o=r
+    marker: "# {mark} ANSIBLE HOSTNAME BLOCK"
+    block: |
+      [network]
+      hostname={{ ansible_facts['hostname'] }}
+  when: ansible_kernel is search('WSL2')

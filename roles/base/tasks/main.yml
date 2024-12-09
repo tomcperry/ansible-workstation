@@ -1,5 +1,8 @@
 ---
 
+- name: WSL hostname
+  ansible.builtin.import_tasks: wsl_hostname.yml
+
 - name: Upgrade packages
   ansible.builtin.import_tasks: upgrade_packages.yml
 
