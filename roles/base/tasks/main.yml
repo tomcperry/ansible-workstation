@@ -3,6 +3,9 @@
 - name: WSL hostname
   ansible.builtin.import_tasks: wsl_hostname.yml
 
+- name: Set timezone
+  ansible.builtin.import_tasks: timezone.yml
+
 - name: Upgrade packages
   ansible.builtin.import_tasks: upgrade_packages.yml
 
