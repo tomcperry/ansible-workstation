@@ -3,6 +3,9 @@
 - name: WSL hostname
   ansible.builtin.import_tasks: wsl_hostname.yml
 
+- name: Install galaxy collections
+  ansible.builtin.import_tasks: galaxy_collections.yml
+
 - name: Set timezone
   ansible.builtin.import_tasks: timezone.yml
 
