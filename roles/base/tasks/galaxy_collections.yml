@@ -1,0 +1,19 @@
+---
+
+- name: Import galaxy collection variables
+  ansible.builtin.include_vars: default_galaxy_collections.yml
+
+- name: Get galaxy collections path
+  become: false
+  ansible.builtin.shell:
+    cmd: set -o pipefail && ansible-config dump --format json | jq -r '.[] | select(.name=="COLLECTIONS_PATHS") | .value[0]'
+    executable: /bin/bash
+  changed_when: false
+  register: galaxy_collections_path
+
+- name: Install galaxy collections
+  become: false
+  ansible.builtin.command:
+    cmd: ansible-galaxy collection install {{ item }}
+    creates: "{{ galaxy_collections_path.stdout }}/ansible_collections/{{ item | replace('.', '/') }}/MANIFEST.json"
+  loop: "{{ galaxy_collections }}"
