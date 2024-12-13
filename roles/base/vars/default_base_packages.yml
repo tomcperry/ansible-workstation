@@ -7,4 +7,6 @@ base_packages:
   - curl
   - wget
   - moreutils
+  - tree
+  - lsd
   - ansible-core
