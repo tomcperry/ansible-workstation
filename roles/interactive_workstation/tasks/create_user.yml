@@ -1,6 +1,6 @@
 ---
-
-- include_vars: default_user.yml
+- name: Import default user variables
+  ansible.builtin.include_vars: default_user.yml
 
 - name: Create group ({{ username }})
   become: true
