@@ -41,6 +41,8 @@
   ansible.builtin.blockinfile:
     insertafter: "EOF"
     create: true
+    mode: u=rw,g=r,o=r
+    owner: root
     path: /etc/wsl.conf
     marker: "# {mark} ANSIBLE DEFAULT USER BLOCK"
     block: |
