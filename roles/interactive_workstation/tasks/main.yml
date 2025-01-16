@@ -1,0 +1,4 @@
+---
+
+- name: Create user
+  ansible.builtin.import_tasks: create_user.yml
