@@ -2,3 +2,4 @@
 
 galaxy_collections:
   - community.general
+  - ansible.posix
