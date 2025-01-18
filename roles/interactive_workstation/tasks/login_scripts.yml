@@ -1,0 +1,15 @@
+---
+
+- name: Update .bashrc to run login scripts
+  become: true
+  ansible.builtin.blockinfile:
+    insertafter: EOF
+    create: true
+    path: /home/{{ username }}/.bashrc
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: u=rw,g=r,o=r
+    marker: "# {mark} ANSIBLE LOGIN SCRIPTS BLOCK"
+    prepend_newline: true
+    block: |
+      run-parts ~/.local/login_scripts
