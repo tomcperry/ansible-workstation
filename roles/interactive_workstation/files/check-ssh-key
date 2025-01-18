@@ -1,0 +1,30 @@
+#!/bin/bash
+
+ssh_key="$HOME/.ssh/id_ed25519"
+
+if [[ -f "$ssh_key" ]]; then
+   # grep lines not matching "-", ie actual key data, 
+   # decode the base64 to raw bytes
+   # use od -S 3 to find any null terminated strings longer than 3 characters. We need the 2nd one, so.. 
+   # keep the first two lines (head -n 2)
+   # then keep the last line (tail -n 1)
+   encrypt_check=$(cat "$ssh_key" | grep -v "-" \
+      | base64 --decode \
+      | od -S 3 -An \
+      | head -n 2 \
+      | tail -n 1 )
+
+    # if that value == "none" then the key file is not encrypted with a passphrase
+    if [[ "$encrypt_check" = "none" ]]; then
+       echo "$(tput setaf 1)"
+       echo "#############################################"
+       echo "#                                           #"
+       echo "#  WARNING - UNPROTECTED SSH KEY DETECTED!  #"
+       echo "#                                           #"
+       echo "#############################################$(tput sgr0)"
+       echo ""
+       echo "Remember to add a passphrase..."
+       echo "hint - 'ssh-keygen -p -f key_file'"
+       echo ""
+    fi
+fi

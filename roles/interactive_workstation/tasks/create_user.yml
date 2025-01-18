@@ -1,0 +1,52 @@
+---
+
+- name: Import default user variables
+  ansible.builtin.include_vars: default_user.yml
+
+- name: Create group ({{ username }})
+  become: true
+  ansible.builtin.group:
+    name: "{{ username }}"
+
+- name: Create user ({{ username }})
+  become: true
+  ansible.builtin.user:
+    name: "{{ username }}"
+    group: "{{ username }}"
+    comment: "{{ fullname }}"
+    create_home: true
+    password_lock: true
+    shell: /bin/bash
+    generate_ssh_key: true
+    ssh_key_type: ed25519
+    ssh_key_file: .ssh/id_ed25519
+    ssh_key_comment: "{{ username }}@{{ ansible_facts['hostname'] }}"
+
+- name: Add user to sudoers ({{ username }})
+  become: true
+  ansible.builtin.copy:
+    content: "{{ username }} ALL=(ALL) NOPASSWD:ALL"
+    dest: /etc/sudoers.d/{{ username }}
+    owner: root
+    mode: ug+r
+
+- name: Add authorised keys ({{ username }})
+  become: true
+  ansible.posix.authorized_key:
+    user: "{{ username }}"
+    exclusive: true
+    key: "https://github.com/{{ github_username }}.keys"
+
+- name: Set default WSL user
+  become: true
+  ansible.builtin.blockinfile:
+    insertafter: "EOF"
+    create: true
+    mode: u=rw,g=r,o=r
+    owner: root
+    path: /etc/wsl.conf
+    marker: "# {mark} ANSIBLE DEFAULT USER BLOCK"
+    block: |
+      [user]
+      default={{ username }}
+  when: ansible_kernel is search("WSL")

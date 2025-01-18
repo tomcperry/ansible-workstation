@@ -1,0 +1,11 @@
+---
+
+- name: Import default workstation packages
+  ansible.builtin.include_vars: default_packages.yml
+
+- name: Install workstation packages (Ubuntu)
+  become: true
+  ansible.builtin.apt:
+    name: "{{ workstation_packages }}"
+    state: latest
+  when: ansible_distribution == "Ubuntu"

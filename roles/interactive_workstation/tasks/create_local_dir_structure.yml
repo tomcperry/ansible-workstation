@@ -1,0 +1,28 @@
+---
+
+- name: Create local dir
+  become: true
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.local"
+    state: directory
+    mode: u=rwx,g=rx
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Create local/bin dir
+  become: true
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.local/bin"
+    state: directory
+    mode: u=rwx,g=rx
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Create local/login_scripts dir
+  become: true
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.local/login_scripts"
+    state: directory
+    mode: u=rwx,g=rx
+    owner: "{{ username }}"
+    group: "{{ username }}"

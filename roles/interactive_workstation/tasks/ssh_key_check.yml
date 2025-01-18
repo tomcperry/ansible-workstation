@@ -1,0 +1,10 @@
+---
+
+- name: SSH key check script
+  become: true
+  ansible.builtin.copy:
+    src: check-ssh-key
+    dest: /home/{{ username }}/.local/login_scripts/99-check-ssh-key
+    mode: u=rwx,g=rx,o=rx
+    owner: "{{ username }}"
+    group: "{{ username }}"
