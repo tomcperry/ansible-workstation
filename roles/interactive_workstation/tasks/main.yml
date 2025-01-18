@@ -2,3 +2,6 @@
 
 - name: Create user
   ansible.builtin.import_tasks: create_user.yml
+
+- name: Create local directory structure
+  ansible.builtin.import_tasks: create_local_dir_structure.yml
