@@ -2,8 +2,6 @@
 
 ssh_key="$HOME/.ssh/id_ed25519"
 
-echo "SSH key is... $ssh_key"
-
 if [[ -f "$ssh_key" ]]; then
    # grep lines not matching "-", ie actual key data, 
    # decode the base64 to raw bytes
