@@ -1,0 +1,13 @@
+---
+
+workstation_packages:
+  - neovim
+  - git
+  - jq
+  - yq
+  - bat
+  - iputils-ping
+  - iputils-tracepath
+  - dnsutils
+  - tree
+  - lsd

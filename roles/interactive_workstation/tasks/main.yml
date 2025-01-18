@@ -11,3 +11,6 @@
 
 - name: Config local login scripts
   ansible.builtin.import_tasks: login_scripts.yml
+
+- name: Install workstation packages
+  ansible.builtin.import_tasks: install_packages.yml
