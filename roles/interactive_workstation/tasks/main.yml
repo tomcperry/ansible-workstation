@@ -5,3 +5,6 @@
 
 - name: Create local directory structure
   ansible.builtin.import_tasks: create_local_dir_structure.yml
+
+- name: SSH key check
+  ansible.builtin.import_tasks: ssh_key_check.yml
