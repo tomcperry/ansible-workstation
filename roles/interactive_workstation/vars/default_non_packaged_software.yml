@@ -1,0 +1,5 @@
+---
+
+non_packacked_software_install_dir: ~/.local/bin
+
+duckdb_version: v1.1.2

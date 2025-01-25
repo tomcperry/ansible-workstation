@@ -1,0 +1,16 @@
+---
+
+- name: Import non-packaged software variables
+  ansible.builtin.include_vars: default_non_packaged_software.yml
+
+- name: Create directory for non-packaged software
+  become: true
+  ansible.builtin.file:
+    path: "{{ non_packacked_software_install_dir | replace('~', '/home/' ~ username) }}"
+    state: directory
+    mode: u=rwx,g=rx
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Install duckdb
+  ansible.builtin.import_tasks: non_packaged_software/duckdb.yml
