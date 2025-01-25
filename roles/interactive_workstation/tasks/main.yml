@@ -14,3 +14,6 @@
 
 - name: Install workstation packages
   ansible.builtin.import_tasks: install_packages.yml
+
+- name: Install non-packaged software
+  ansible.builtin.import_tasks: install_non_packaged_software.yml

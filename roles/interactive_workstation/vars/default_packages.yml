@@ -11,3 +11,4 @@ workstation_packages:
   - dnsutils
   - tree
   - lsd
+  - unzip

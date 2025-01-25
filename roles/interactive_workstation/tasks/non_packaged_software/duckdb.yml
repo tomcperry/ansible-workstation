@@ -1,0 +1,11 @@
+---
+
+- name: Duckdb - Download and Install
+  become: true
+  ansible.builtin.unarchive:
+    src: "https://github.com/duckdb/duckdb/releases/download/{{ duckdb_version }}/duckdb_cli-linux-amd64.zip"
+    dest: "{{ non_packacked_software_install_dir | replace('~', '/home/' ~ username) }}"
+    remote_src: true
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "u=wrx,g=rx"

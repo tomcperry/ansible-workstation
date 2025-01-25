@@ -1,0 +1,11 @@
+---
+
+- name: Kubectl - Download and Install
+  become: true
+  ansible.builtin.get_url:
+    url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/amd64/kubectl"
+    dest: "{{ non_packacked_software_install_dir | replace('~', '/home/' ~ username) }}/kubectl"
+    checksum: "sha256:{{ lookup('ansible.builtin.url', 'https://dl.k8s.io/release/' ~ kubectl_version ~ '/bin/linux/amd64/kubectl.sha256') }}"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "u=wrx,g=rx"
