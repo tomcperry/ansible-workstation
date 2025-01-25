@@ -3,4 +3,5 @@
 non_packacked_software_install_dir: ~/.local/bin
 
 duckdb_version: v1.1.2
+kubectl_version: v1.31.1
 kustomize_version: v5.6.0
