@@ -14,3 +14,6 @@
 
 - name: Install duckdb
   ansible.builtin.import_tasks: non_packaged_software/duckdb.yml
+
+- name: Install kustomize
+  ansible.builtin.import_tasks: non_packaged_software/kustomize.yml

@@ -1,0 +1,11 @@
+---
+
+- name: Kustomize - Download and Install
+  become: true
+  ansible.builtin.unarchive:
+    src: "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/{{ kustomize_version }}/kustomize_{{ kustomize_version }}_linux_amd64.tar.gz"
+    dest: "{{ non_packacked_software_install_dir | replace('~', '/home/' ~ username) }}"
+    remote_src: true
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "u=wrx,g=rx"
